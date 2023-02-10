@@ -1,12 +1,12 @@
 version: '3.7'
 services:
   app:
-    container_name: subscription
+    container_name: feedback
     build:
       context: .
       dockerfile: Dockerfile
       # args:
-    image: subscription
+    image: feedback
     extra_hosts:
       - 'host.docker.internal:host-gateway'
     ports:
