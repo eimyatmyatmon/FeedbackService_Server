@@ -22,12 +22,21 @@ namespace Feedback_Service.Data
                 .IsRequired();
 
             //Enum RatingEnum Configuration
-            modelBuilder
+          /*  modelBuilder
            .Entity<Rating>()
            .Property(s => s.RatingValue)
            .HasConversion(
                v => v.ToString(),
-               v => (RatingEnum)Enum.Parse(typeof(RatingEnum), v));
+               v => (RatingEnum)Enum.Parse(typeof(RatingEnum), v));*/
+               
+           //Prepare Enum null configuration
+           modelBuilder
+                .Entity<Rating>()
+                .Property(s => s.RatingValue)
+                .HasConversion(
+                v => v.HasValue ? v.Value.ToString() : null,
+                v => string.IsNullOrEmpty(v) ? (RatingEnum?)null : (RatingEnum)Enum.Parse(typeof(RatingEnum), v));
+
             modelBuilder.Entity<Rating>().ToTable("ratings");
         }
         public DbSet<Rating> Ratings { get; set; } = default!;
